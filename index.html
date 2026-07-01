@@ -1,143 +1,79 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stardance Cosmic WebOS</title>
+    <title>Neo-OS Desktop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="desktop">
-        
         <div id="central-hub">
+            <h2 class="hub-title">Neo-OS Command</h2>
             <div class="search-container">
-                <span class="search-icon"></span>
-                <input type="text" id="desktop-search" placeholder="Type 'stardance', 'hackclub', or 'open calc'...">
+                <input type="text" id="desktop-search" placeholder="Type a command...">
             </div>
-            
             <div class="shortcuts-grid">
-                <div class="desktop-icon" data-app="notepad">
-                    
-                    <span class="icon-text">Notepad</span>
-                </div>
-                <div class="desktop-icon" data-app="calc">
-                    
-                    <span class="icon-text">Calculator</span>
-                </div>
-                <div class="desktop-icon" data-app="browser">
-                    
-                    <span class="icon-text">Browser</span>
-                </div>
-                <div class="desktop-icon" data-app="settings">
-                    
-                    <span class="icon-text">Settings</span>
-                </div>
+                <div class="desktop-icon" onclick="openApp('calculator')">🧮<span class="icon-text">Calc</span></div>
+                <div class="desktop-icon" onclick="openApp('browser')">🌐<span class="icon-text">Web</span></div>
+                <div class="desktop-icon" onclick="openApp('doodle')">🎨<span class="icon-text">Doodle</span></div>
             </div>
         </div>
 
-        <div class="window" id="win-notepad">
+        <div id="calculator-window" class="window" style="left: 50px; top: 50px;">
             <div class="window-header">
-                <span class="window-title"> Cosmic Notes</span>
-                <div class="window-controls">
-                    <button class="win-btn min-btn">&#9472;</button>
-                    <button class="win-btn close-btn">&times;</button>
+                <span class="window-title">🧮 Calculator</span>
+                <div class="win-controls">
+                    <button class="win-btn close-btn" onclick="closeApp('calculator')">X</button>
                 </div>
             </div>
             <div class="window-body">
-                <textarea id="notepad-input" placeholder="Write your ideas here... (Auto-saves to local storage!)"></textarea>
-            </div>
-        </div>
-
-        <div class="window" id="win-calc">
-            <div class="window-header">
-                <span class="window-title">ðŸ”¢ Quantum Calc</span>
-                <div class="window-controls">
-                    <button class="win-btn min-btn">&#9472;</button>
-                    <button class="win-btn close-btn">&times;</button>
-                </div>
-            </div>
-            <div class="window-body calc-container">
-                <input type="text" id="calc-display" readonly value="0">
+                <input type="text" id="calc-display" disabled value="0">
                 <div class="calc-buttons">
-                    <button class="c-btn clear">C</button>
-                    <button class="c-btn op">/</button>
-                    <button class="c-btn op">*</button>
-                    <button class="c-btn op">-</button>
-                    <button class="c-btn">7</button>
-                    <button class="c-btn">8</button>
-                    <button class="c-btn">9</button>
-                    <button class="c-btn op">+</button>
-                    <button class="c-btn">4</button>
-                    <button class="c-btn">5</button>
-                    <button class="c-btn">6</button>
-                    <button class="c-btn equal">=</button>
-                    <button class="c-btn">1</button>
-                    <button class="c-btn">2</button>
-                    <button class="c-btn">3</button>
-                    <button class="c-btn zero">0</button>
+                    <button class="c-btn" onclick="calcPress('7')">7</button>
+                    <button class="c-btn" onclick="calcPress('8')">8</button>
+                    <button class="c-btn" onclick="calcPress('9')">9</button>
+                    <button class="c-btn action" onclick="calcPress('/')">/</button>
+                    <button class="c-btn" onclick="calcPress('4')">4</button>
+                    <button class="c-btn" onclick="calcPress('5')">5</button>
+                    <button class="c-btn" onclick="calcPress('6')">6</button>
+                    <button class="c-btn action" onclick="calcPress('*')">*</button>
+                    <button class="c-btn" onclick="calcPress('1')">1</button>
+                    <button class="c-btn" onclick="calcPress('2')">2</button>
+                    <button class="c-btn" onclick="calcPress('3')">3</button>
+                    <button class="c-btn action" onclick="calcPress('-')">-</button>
+                    <button class="c-btn clear" onclick="calcClear()">C</button>
+                    <button class="c-btn" onclick="calcPress('0')">0</button>
+                    <button class="c-btn action" onclick="calcEval()">=</button>
+                    <button class="c-btn action" onclick="calcPress('+')">+</button>
                 </div>
             </div>
         </div>
 
-        <div class="window" id="win-browser">
-            <div class="window-header">
-                <span class="window-title"> Deepspace Navigation</span>
-                <div class="window-controls">
-                    <button class="win-btn min-btn">&#9472;</button>
-                    <button class="win-btn close-btn">&times;</button>
+        <div id="doodle-window" class="window" style="left: 150px; top: 100px; width: 450px;">
+            <div class="window-header" style="background-color: #ff90e8;">
+                <span class="window-title">🎨 Doodle Pad</span>
+                <div class="win-controls">
+                    <button class="win-btn close-btn" onclick="closeApp('doodle')">X</button>
                 </div>
             </div>
-            <div class="window-body browser-container">
-                <div class="browser-address-bar">
-                    <input type="text" id="browser-url" value="https://www.wikipedia.org">
-                    <button id="browser-go-btn">Launch</button>
-                </div>
-                <iframe id="browser-viewport"></iframe>
+            <div class="window-body">
+                <button class="c-btn clear" onclick="clearCanvas()" style="margin-bottom: 10px;">Clear Canvas</button>
+                <canvas id="doodle-canvas" width="400" height="250" style="border: 2px solid black; background: white; cursor: crosshair;"></canvas>
             </div>
         </div>
-
-        <div class="window" id="win-settings">
-            <div class="window-header">
-                <span class="window-title">¸ Desktop Engine Settings</span>
-                <div class="window-controls">
-                    <button class="win-btn min-btn">&#9472;</button>
-                    <button class="win-btn close-btn">&times;</button>
-                </div>
-            </div>
-            <div class="window-body settings-container">
-                <h3>Nebula Custom Background Picker</h3>
-                <div class="theme-picker-grid">
-                    <button class="theme-opt" data-color="linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%)" style="background:#1e1b4b;"></button>
-                    <button class="theme-opt" data-color="linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)" style="background:#1e3a8a;"></button>
-                    <button class="theme-opt" data-color="linear-gradient(135deg, #581c87 0%, #111827 100%)" style="background:#581c87;"></button>
-                    <button class="theme-opt" data-color="linear-gradient(135deg, #032b30 0%, #071112 100%)" style="background:#032b30;"></button>
-                </div>
-            </div>
-        </div>
-
-        <div id="start-menu">
-            <div class="start-banner">
-                <div class="banner-text">STARDANCE OS</div>
-            </div>
-            <div class="start-options">
-                <div class="menu-link" data-app="notepad"> Open Notes</div>
-                <div class="menu-link" data-app="calc"> Open Calculator</div>
-                <div class="menu-link" data-app="browser"> Open Browser</div>
-                <div class="menu-link" data-app="settings">Settings Engine</div>
-                <div class="menu-separator"></div>
-                <div class="menu-link danger-action" id="action-power">Shutdown Environment</div>
-            </div>
-        </div>
-
     </div>
 
     <div id="taskbar">
-        <button id="start-trigger"> Start</button>
+        <button id="start-trigger" onclick="toggleStart()">START</button>
         <div id="running-tasks"></div>
-        <div id="system-status">
-            <span id="os-clock">00:00:00 AM</span>
-        </div>
+    </div>
+
+    <div id="start-menu">
+        <div class="menu-link" onclick="openApp('calculator')">🧮 Calculator</div>
+        <div class="menu-link" onclick="openApp('doodle')">🎨 Doodle Pad</div>
+        <div class="menu-link jiggle-btn" onclick="triggerJiggle()">🌀 Jiggle Mode!</div>
     </div>
 
     <script src="script.js"></script>
