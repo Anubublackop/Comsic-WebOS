@@ -15,15 +15,15 @@
                 <input type="text" id="desktop-search" placeholder="Type a command...">
             </div>
             <div class="shortcuts-grid">
-                <div class="desktop-icon" onclick="openApp('calculator')">🧮<span class="icon-text">Calc</span></div>
-                <div class="desktop-icon" onclick="openApp('browser')">🌐<span class="icon-text">Web</span></div>
-                <div class="desktop-icon" onclick="openApp('doodle')">🎨<span class="icon-text">Doodle</span></div>
+                <div class="desktop-icon" onclick="openApp('calculator')"><span class="icon-text">Calc</span></div>
+                <div class="desktop-icon" onclick="openApp('browser')"><span class="icon-text">Web</span></div>
+                <div class="desktop-icon" onclick="openApp('doodle')"><span class="icon-text">Doodle</span></div>
             </div>
         </div>
 
         <div id="calculator-window" class="window" style="left: 50px; top: 50px;">
             <div class="window-header">
-                <span class="window-title">🧮 Calculator</span>
+                <span class="window-title">Calculator</span>
                 <div class="win-controls">
                     <button class="win-btn close-btn" onclick="closeApp('calculator')">X</button>
                 </div>
@@ -53,7 +53,7 @@
 
         <div id="doodle-window" class="window" style="left: 150px; top: 100px; width: 450px;">
             <div class="window-header" style="background-color: #ff90e8;">
-                <span class="window-title">🎨 Doodle Pad</span>
+                <span class="window-title">Doodle Pad</span>
                 <div class="win-controls">
                     <button class="win-btn close-btn" onclick="closeApp('doodle')">X</button>
                 </div>
@@ -61,6 +61,18 @@
             <div class="window-body">
                 <button class="c-btn clear" onclick="clearCanvas()" style="margin-bottom: 10px;">Clear Canvas</button>
                 <canvas id="doodle-canvas" width="400" height="250" style="border: 2px solid black; background: white; cursor: crosshair;"></canvas>
+            </div>
+        </div>
+
+        <div id="browser-window" class="window" style="left: 100px; top: 120px; width: 500px; height: 400px;">
+            <div class="window-header" style="background-color: #39ff14;">
+                <span class="window-title">Web Browser</span>
+                <div class="win-controls">
+                    <button class="win-btn close-btn" onclick="closeApp('browser')">X</button>
+                </div>
+            </div>
+            <div class="window-body" style="height: calc(100% - 50px); padding: 5px;">
+                <iframe src="https://hackclub.com" style="width: 100%; height: 100%; border: 3px solid black; background: white;"></iframe>
             </div>
         </div>
     </div>
@@ -71,9 +83,10 @@
     </div>
 
     <div id="start-menu">
-        <div class="menu-link" onclick="openApp('calculator')">🧮 Calculator</div>
-        <div class="menu-link" onclick="openApp('doodle')">🎨 Doodle Pad</div>
-        <div class="menu-link jiggle-btn" onclick="triggerJiggle()">🌀 Jiggle Mode!</div>
+        <div class="menu-link" onclick="openApp('calculator')">Calculator</div>
+        <div class="menu-link" onclick="openApp('browser')">Web Browser</div>
+        <div class="menu-link" onclick="openApp('doodle')">Doodle Pad</div>
+        <div class="menu-link jiggle-btn" onclick="triggerJiggle()">Jiggle Mode!</div>
     </div>
 
     <script src="script.js"></script>
